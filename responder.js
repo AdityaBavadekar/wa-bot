@@ -3,6 +3,7 @@ configDotenv();
 import venom from "venom-bot";
 import QRCode from "qrcode";
 import { generateResponse } from "./functions.js";
+import { isAllowedUser, PERMISSIONS } from "./permissions.js";
 
 // https://stackoverflow.com/questions/26667820/upload-a-base64-encoded-image-using-formdata
 // 
@@ -40,7 +41,7 @@ async function onMessageEditOrDelete(client, message, isDelete) {
 
     if (isDelete && deletedMessageIds.includes(message.id)) return;
 
-    if (!isAllowedUser(sender, 1)) {
+    if (!isAllowedUser(sender, PERMISSIONS.ALL)) {
         console.log("Not to notify about " + (isDelete ? "delete" : "edit"));
         return;
     }
