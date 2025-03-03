@@ -84,7 +84,7 @@ async function onMessageEditOrDelete(client, message, isDelete) {
     await client.reply(message.from, replyMessage, message.id);
 }
 
-async function sendQRToMail() {
+async function sendQRToMail(urlCode) {
     if (!MAIL_SEND_URL) {
         console.log("[x] Mail send URL not found. Skipping...");
         return;
@@ -112,7 +112,7 @@ venom
         async (base64Qr, asciiQR, attempts, urlCode) => {
             console.log("[x] QR Code received. Sending to Mail...");
             try {
-                await sendQRToMail();
+                await sendQRToMail(urlCode);
             } catch (e) {
                 console.log("Error", e);
             }
